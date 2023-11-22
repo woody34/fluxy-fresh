@@ -16,7 +16,6 @@ export const useLoading = (): Signal<boolean> => {
           break
         }
       }
-      console.log('readystatechange', loading.value)
     });
     
   }

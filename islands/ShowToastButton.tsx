@@ -7,7 +7,7 @@ export default function ShowToastButton(props: { type: "show" | "hide" }) {
   return props.type === "show"
     ? (
       <button
-        class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+        class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 outline-dotted"
         onClick={() => {
           function getRandomInt(min: number, max: number) {
             return Math.floor(Math.random() * (max - min + 1) + min);
@@ -21,5 +21,5 @@ export default function ShowToastButton(props: { type: "show" | "hide" }) {
         Show Toast
       </button>
     )
-    : <button class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={hideToast}>Hide Toast</button>;
+    : <button class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 outline-dotted" onClick={hideToast}>Hide Toast</button>;
 }

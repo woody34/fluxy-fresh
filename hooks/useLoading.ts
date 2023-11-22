@@ -17,7 +17,6 @@ export const useLoading = (): Signal<boolean> => {
         }
       }
     });
-    
   }
   globalThis.window.addEventListener("beforeunload", () => {
     console.log('beforeunload', loading.value)

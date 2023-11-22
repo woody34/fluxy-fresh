@@ -13,7 +13,7 @@ const defaultToastState = (): ToastState => ({
 });
 
 export const useToaster = () => {
-  const { state, setState, resetState } = useStore(
+  const { state, setState, resetState, updateState } = useStore(
     "toast-notification",
     defaultToastState,
   );
@@ -32,7 +32,7 @@ export const useToaster = () => {
   };
 
   const hideToast = () => {
-    resetState();
+    updateState({ show: false });
   };
 
   return {

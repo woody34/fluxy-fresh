@@ -13,7 +13,7 @@ export default function Home() {
           height="128"
           alt="the Fresh logo: a sliced lemon dripping with juice"
         />
-        <h1 class="text-4xl font-bold">Flexy Fresh Demo</h1>
+        <h1 class="text-4xl font-bold">Fluxy Fresh Demo</h1>
         <p class="my-4 flex flex-row gap-3">
           <ShowToastButton type="show" />
           <ShowToastButton type="hide" />

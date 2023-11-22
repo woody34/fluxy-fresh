@@ -5,8 +5,8 @@
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
     "deno task start": {
-      "name": "deno task start",
-      "command": "deno task start",
+      "name": "PORT=8000 deno task start",
+      "command": "PORT=8000 deno task start",
       "runAtStart": true,
       "preview": {
         "port": 8000

@@ -42,7 +42,7 @@ export default function Toast() {
               {icon}
             </div>
             <div class="ms-3">
-              <p class="text-sm text-gray-700 dark:text-gray-400">
+              <p class="text-sm text-gray-700">
                 {message}
               </p>
             </div>

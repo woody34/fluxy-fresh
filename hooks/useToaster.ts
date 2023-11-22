@@ -1,4 +1,4 @@
-import { useStore } from "https://deno.land/x/fluxy@0.0.4/mod.ts";
+import { useStore } from "https://deno.land/x/fluxy/mod.ts";
 
 export interface ToastState {
   show: boolean;

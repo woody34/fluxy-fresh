@@ -1,6 +1,6 @@
 # Fluxy Fresh
 
-Fluxy fresh is an example implementation for fluxy with Deno's Fresh framework.
+Fluxy Fresh is an example implementation for Fluxy with Deno's Fresh framework.
 
 ### Live Demo
 

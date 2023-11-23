@@ -2,7 +2,7 @@ import { IS_BROWSER } from "$fresh/runtime.ts";
 import { Signal, useSignal } from "@preact/signals";
 
 export const useLoading = (): Signal<boolean> => {
-  const loading = useSignal(true);
+  const loading = useSignal(false);
 
   if (IS_BROWSER) {
     globalThis.window.document.addEventListener("readystatechange", (event) => {
@@ -12,6 +12,10 @@ export const useLoading = (): Signal<boolean> => {
           break;
         }
         case "complete": {
+          loading.value = false;
+          break;
+        }
+        case "interactive": {
           loading.value = false;
           break;
         }
@@ -27,9 +31,29 @@ export const useLoading = (): Signal<boolean> => {
     loading.value = false;
   };
 
+  globalThis.window.onpagehide = () => {
+    loading.value = true;
+  };
+
   globalThis.window.addEventListener("beforeunload", () => {
     loading.value = true;
   });
+
+  const fetch = globalThis.window.fetch;
+  globalThis.window.fetch = async (
+    input: RequestInfo | URL,
+    init?: RequestInit | undefined,
+  ) => {
+    try {
+      loading.value = true;
+      const resp = await fetch(input, init);
+      return resp;
+    } catch (e) {
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  };
 
   return loading;
 };

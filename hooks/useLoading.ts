@@ -20,12 +20,10 @@ export const useLoading = (): Signal<boolean> => {
   }
 
   globalThis.window.onpageshow = () => {
-    console.log("onpageshow");
     loading.value = false;
   };
 
   globalThis.window.addEventListener("beforeunload", () => {
-    console.log("beforeunload", loading.value);
     loading.value = true;
   });
 

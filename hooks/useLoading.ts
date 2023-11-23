@@ -19,6 +19,10 @@ export const useLoading = (): Signal<boolean> => {
     });
   }
 
+  globalThis.window.onerror = () => {
+    loading.value = false;
+  };
+
   globalThis.window.onpageshow = () => {
     loading.value = false;
   };

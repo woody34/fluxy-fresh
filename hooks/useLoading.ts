@@ -15,10 +15,6 @@ export const useLoading = (): Signal<boolean> => {
           loading.value = false;
           break;
         }
-        case "interactive": {
-          loading.value = false;
-          break;
-        }
       }
     });
   }

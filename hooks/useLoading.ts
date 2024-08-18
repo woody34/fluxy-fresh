@@ -1,55 +1,38 @@
 import { IS_BROWSER } from "$fresh/runtime.ts";
-import { Signal, useSignal } from "@preact/signals";
+import { computed, effect, Signal, useSignal } from "@preact/signals";
+import { useEffect } from "https://esm.sh/v128/preact@10.19.6/hooks";
 
 export const useLoading = (): Signal<boolean> => {
-  const loading = useSignal(false);
+  const networkCount = useSignal(1); // defaults to loading, client clears thisafter mounting  js that is fetched
 
-  if (IS_BROWSER) {
-    globalThis.window.document.addEventListener("readystatechange", (event) => {
-      switch ((event.target as Document).readyState) {
-        case "loading": {
-          loading.value = true;
-          break;
-        }
-        case "complete": {
-          loading.value = false;
-          break;
-        }
-      }
-    });
-  }
-
-  globalThis.window.onerror = () => {
-    loading.value = false;
-  };
-
-  globalThis.window.onpageshow = () => {
-    loading.value = false;
-  };
-
-  globalThis.window.onpagehide = () => {
-    loading.value = true;
-  };
-
-  globalThis.window.addEventListener("beforeunload", () => {
-    loading.value = true;
+  const loading = computed(() => {
+    return networkCount.value > 0;
   });
 
-  const fetch = globalThis.window.fetch;
-  globalThis.window.fetch = async (
-    input: RequestInfo | URL,
-    init?: RequestInit | undefined,
-  ) => {
-    try {
-      loading.value = true;
-      const resp = await fetch(input, init);
-      return resp;
-    } catch (e) {
-      throw e;
-    } finally {
-      loading.value = false;
+  effect(() => console.log({ networkCount }));
+
+  useEffect(() => {
+    if (IS_BROWSER) {
+      networkCount.value--;
+      // @ts-expect-error testing something
+      globalThis.window.loading = false;
+
+      const fetch = globalThis.window.fetch;
+
+      globalThis.window.fetch = async (
+        input: RequestInfo | URL,
+        init?: RequestInit | undefined,
+      ) => {
+        networkCount.value++;
+        try {
+          const resp = await fetch(input, init);
+          return resp;
+        } finally {
+          networkCount.value--;
+        }
+      };
     }
-  };
+  }, []);
 
   return loading;
 };
